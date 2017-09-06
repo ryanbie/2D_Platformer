@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+    // Movement Speed
     public float moveSpeed;
     private Rigidbody2D myRigidbody;
 
+    // Jump Speed
     public float jumpSpeed;
+
+    // Ground Check 
+    public Transform groundCheck;
+    public float groundCheckRadius;
+    public LayerMask whatIsGround;
+
+    public bool isGrounded;
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +25,10 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        // Ground Check Cont. 
+
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
         // Player movement x-axis 
         if (Input.GetAxisRaw("Horizontal") > 0f)
@@ -30,7 +43,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         // Jumping mechanics 
-        if (Input.GetButtonDown("Jump")) 
+        if (Input.GetButtonDown("Jump") && isGrounded) 
         {
             myRigidbody.velocity = new Vector3(myRigidbody.velocity.x, jumpSpeed, 0f);
         }

@@ -7,7 +7,10 @@ public class LevelManager : MonoBehaviour {
     public float waitToRespawn;
 
     // Reference to PlayerController.cs 
-    public PlayerController thePlayer; 
+    public PlayerController thePlayer;
+
+    // Reference to deathSplosion prefab 
+    public GameObject deathSplosion; 
 
 	// Use this for initialization
 	void Start () {
@@ -30,6 +33,8 @@ public class LevelManager : MonoBehaviour {
     public IEnumerator RespawnCo()
     {
 		thePlayer.gameObject.SetActive(false); // Deactivates gameObject (Player)
+
+        Instantiate(deathSplosion, thePlayer.transform.position, thePlayer.transform.rotation); // Clones an existing object (deathSplosion)
 
         yield return new WaitForSeconds(waitToRespawn); // Temporarily delays activation of gameObject (Player)  
 

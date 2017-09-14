@@ -24,12 +24,17 @@ public class PlayerController : MonoBehaviour {
     // Respawn
     public Vector3 respawnPosition;
 
+    // Reference to LevelManager.cs 
+    public LevelManager theLevelManager; 
+
 	// Use this for initialization
 	void Start () {
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
 
         respawnPosition = transform.position; // Transform position of gameObject = Player 
+
+        theLevelManager = FindObjectOfType<LevelManager>(); // Looks for LevelManager Script 
 	}
 	
 	// Update is called once per frame
@@ -73,9 +78,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (other.tag == "KillPlane") 
         {
-            /* gameObject.SetActive(false); // Deactivate Player */ 
-
-            transform.position = respawnPosition; 
+            theLevelManager.Respawn(); // Grabs the Respawn function from LevelManager Script
         }
 
         if (other.tag == "Checkpoint")

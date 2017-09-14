@@ -21,17 +21,21 @@ public class PlayerController : MonoBehaviour {
     // Animation 
     private Animator myAnim;
 
+    // Respawn
+    public Vector3 respawnPosition;
+
 	// Use this for initialization
 	void Start () {
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
+
+        respawnPosition = transform.position; // Transform position of gameObject = Player 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
         // Ground Check Cont. 
-
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
         // Player movement x-axis 
@@ -62,4 +66,21 @@ public class PlayerController : MonoBehaviour {
         myAnim.SetFloat("Speed", Mathf.Abs(myRigidbody.velocity.x));
         myAnim.SetBool("Grounded", isGrounded);
 	}
+
+
+    // Kill Plane (if Triggered) 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "KillPlane") 
+        {
+            /* gameObject.SetActive(false); // Deactivate Player */ 
+
+            transform.position = respawnPosition; 
+        }
+
+        if (other.tag == "Checkpoint")
+        {
+            respawnPosition = other.transform.position; // Stores a checkpoint position to return to when the Player dies 
+        }
+    }
 }

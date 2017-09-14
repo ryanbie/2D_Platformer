@@ -12,6 +12,8 @@ public class CameraController : MonoBehaviour {
 
     private Vector3 targetPosition;
 
+    public float smoothing;  
+
 	// Use this for initialization
 	void Start () {
 		
@@ -25,9 +27,16 @@ public class CameraController : MonoBehaviour {
         // y value: Will keep the camera at the same height by taking the MainCamera's current y-position 
         // z value: Will take the MainCamera's current z-position
 
+        // This moves the target of the Camera ahead of the Player 
         if (target.transform.localScale.x > 0f) // Player is facing right
         {
-            else if (target.transform.localScale.x < 0f) // Player is facing left 
+            targetPosition = new Vector3(targetPosition.x + followahead, targetPosition.y, targetPosition.z); // Move Camera ahead if facing right 
+        } else { // Player is facing left 
+            targetPosition = new Vector3(targetPosition.x - followahead, targetPosition.y, targetPosition.z); 
         }
+
+        // How the camera will transition when "followahead" is activated 
+
+        transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing * Time.deltaTime);
 	}
 }

@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        // Object is attached to Main Camera -> Player
+        // Object is attached to Main Camera -> Player (Main Camera is a child of the Player)
         targetPosition = new Vector3(target.transform.position.x, transform.position.y, transform.position.z);
         // x value: Will move the camera to follow the Player on the x-axis
         // y value: Will keep the camera at the same height by taking the MainCamera's current y-position 

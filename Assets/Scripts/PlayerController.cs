@@ -86,4 +86,20 @@ public class PlayerController : MonoBehaviour {
             respawnPosition = other.transform.position; // Stores a checkpoint position to return to when the Player dies 
         }
     }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "MovingPlatform")
+        {
+            transform.parent = other.transform; // Player becomes the child of the MovingPlatform
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if(other.gameObject.tag == "MovingPlatform")
+        {
+            transform.parent = null; // Player goes back to default 
+        }
+    }
 }

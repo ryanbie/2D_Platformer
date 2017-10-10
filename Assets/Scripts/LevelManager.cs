@@ -10,7 +10,9 @@ public class LevelManager : MonoBehaviour {
     public PlayerController thePlayer;
 
     // Reference to deathSplosion prefab 
-    public GameObject deathSplosion; 
+    public GameObject deathSplosion;
+
+    public int coinCount; 
 
 	// Use this for initialization
 	void Start () {
@@ -42,4 +44,11 @@ public class LevelManager : MonoBehaviour {
 
 		thePlayer.gameObject.SetActive(true); // Reactivates gameObject (Player)   
 	}
+
+    public void AddCoins(int coinsToAdd)
+    {
+        coinCount += coinsToAdd;
+
+
+    }
 }
